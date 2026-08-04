@@ -11,8 +11,8 @@ import {
 import { auditLogsData, rolesData, reportTemplatesData, channelsData, messagesByChannel } from './data/misc';
 import { DEFAULT_ROLE_PERMISSIONS } from '../utils/permissions';
 
-export const DEMO_PASSWORD = 'demo1234';
-export const DEMO_ADMIN_PASSWORD = 'admin1234';
+export const DEMO_PASSWORD = '1';
+export const DEMO_ADMIN_PASSWORD = '1';
 export const DEMO_CODE = '123456';
 
 // ── 인메모리 가변 상태 (세션 중 생성/수정/삭제 반영, 새로고침 시 초기화) ──

@@ -63,7 +63,7 @@ const ProjectList: React.FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [listSortCol, setListSortCol] = useState<string | null>(null);
   const [listSortDir, setListSortDir] = useState<'asc' | 'desc'>('asc');
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>(() => (typeof window !== 'undefined' && window.innerWidth < 768 ? 'grid' : 'list'));
   const [activeChips, setActiveChips] = useState<ProjectFilterChip[]>([]);
   const [showChipMenu, setShowChipMenu] = useState(false);
   const [chipMenuType, setChipMenuType] = useState<'projectName' | 'companyName' | 'startDate' | 'dueDate' | 'managerName' | null>(null);
@@ -709,9 +709,10 @@ const ProjectList: React.FC = () => {
                   </div>
                 </div>
               <div className="w-px h-4 mx-1" style={{ backgroundColor: themeColors.border }} />
+              {/* 표(리스트) 보기는 좁은 화면에서 가독성이 떨어져 데스크톱에서만 노출 */}
               <button
                 onClick={() => setViewMode('list')}
-                className="p-2 rounded transition-all"
+                className="hidden md:inline-flex p-2 rounded transition-all"
                 style={{ color: viewMode === 'list' ? themeColors.primary : themeColors.textSecondary }}
                 onMouseEnter={(e) => { if (viewMode !== 'list') e.currentTarget.style.backgroundColor = theme !== 'light' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)'; }}
                 onMouseLeave={(e) => { if (viewMode !== 'list') e.currentTarget.style.backgroundColor = 'transparent'; }}

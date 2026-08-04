@@ -42,7 +42,7 @@ const Companies: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'maintenance' | 'project' | 'ended'>('all');
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>(() => (typeof window !== 'undefined' && window.innerWidth < 768 ? 'grid' : 'list'));
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCompanies, setSelectedCompanies] = useState<Set<string>>(new Set());
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
@@ -546,10 +546,10 @@ const Companies: React.FC = () => {
 
               <div className="w-px h-4 flex-shrink-0" style={{ backgroundColor: themeColors.border }} />
 
-              {/* 뷰 토글 */}
+              {/* 뷰 토글 — 표(리스트) 보기는 좁은 화면에서 가독성이 떨어져 데스크톱에서만 노출 */}
               <button
                 onClick={() => setViewMode('list')}
-                className="p-1.5 rounded transition-all flex-shrink-0"
+                className="hidden md:inline-flex p-1.5 rounded transition-all flex-shrink-0"
                 style={{ color: viewMode === 'list' ? themeColors.primary : themeColors.textSecondary }}
                 onMouseEnter={(e) => { if (viewMode !== 'list') e.currentTarget.style.backgroundColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)'; }}
                 onMouseLeave={(e) => { if (viewMode !== 'list') e.currentTarget.style.backgroundColor = 'transparent'; }}

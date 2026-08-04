@@ -1008,8 +1008,64 @@ const MaintenanceList: React.FC = () => {
           )}
         </div>
 
-        {/* 테이블 */}
-        <div className="overflow-auto flex-1 min-h-0 relative scroll-area">
+        {/* 모바일 카드 리스트 — 좁은 화면에서는 넓은 표 대신 카드로 표시 */}
+        <div className="md:hidden flex-1 min-h-0 overflow-y-auto scroll-area p-3">
+          {isLoading && !isSaving ? (
+            <LoadingSpinner />
+          ) : paginatedRecords.length === 0 ? (
+            <div className="flex flex-col items-center justify-center text-center py-12">
+              <FileText size={40} className="mb-3 opacity-30" style={{ color: themeColors.textSecondary }} />
+              <p className="text-sm font-semibold mb-1" style={{ color: themeColors.text }}>{t('noMaintenance')}</p>
+              <p className="text-xs" style={{ color: themeColors.textSecondary }}>{t('createNewRequest')}</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2">
+              {paginatedRecords.map((record) => {
+                const statusConfig = getStatusConfig(record.status);
+                const pc = { urgent: { label: t('priorityUrgent'), color: '#EF4444' }, high: { label: t('priorityHigh'), color: '#F97316' }, medium: { label: t('priorityMedium'), color: '#F59E0B' }, low: { label: t('priorityLow'), color: '#6B7280' } };
+                const p = pc[record.priority as keyof typeof pc];
+                return (
+                  <div
+                    key={record.id}
+                    className="rounded p-3 cursor-pointer"
+                    style={{ backgroundColor: themeColors.surface, border: `1px solid ${themeColors.border}` }}
+                    onClick={() => setDetailId(record.id)}
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <p className="text-[0.8125rem] font-semibold truncate" style={{ color: themeColors.primary }}>{record.companyName}</p>
+                      <span className="flex-shrink-0 text-[0.6875rem] px-1.5 py-0.5" style={{ backgroundColor: statusConfig.bg, color: statusConfig.text, borderRadius: '4px', fontWeight: 500 }}>{statusConfig.label}</span>
+                    </div>
+                    <p
+                      className="text-xs mb-2 line-clamp-2"
+                      style={{ color: themeColors.text }}
+                      dangerouslySetInnerHTML={{ __html: (record.description || '').replace(/<[^>]+>/g, ' ').trim() || '-' }}
+                    />
+                    <div className="flex items-center flex-wrap gap-1.5 mb-1.5">
+                      {record.workType && (
+                        <span className="text-[0.6875rem] px-1.5 py-0.5" style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(55,53,47,0.08)', color: themeColors.text, borderRadius: '4px', fontWeight: 500 }}>{record.workType}</span>
+                      )}
+                      {p && (
+                        <span className="text-[0.6875rem] px-1.5 py-0.5" style={{ backgroundColor: `${p.color}18`, color: p.color, borderRadius: '3px', fontWeight: 500 }}>{p.label}</span>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between text-[0.6875rem]" style={{ color: themeColors.textSecondary }}>
+                      <span>{t('requester')} {record.requesterName || '-'}</span>
+                      <span>{formatDate(record.requestDate)}</span>
+                    </div>
+                    {record.assignedToName && (
+                      <div className="mt-1 text-[0.6875rem]" style={{ color: themeColors.textSecondary }}>
+                        {t('assignee')} <span style={{ color: themeColors.text }}>{record.assignedToName}</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* 테이블 (데스크톱) */}
+        <div className="hidden md:block overflow-auto flex-1 min-h-0 relative scroll-area">
           <div style={{ minWidth: '1640px' }}>
           {/* 테이블 헤더 */}
           <div

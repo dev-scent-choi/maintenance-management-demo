@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/images/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>유지보수사이트</title>
+    <script>
+      // localStorage에서 폰트 크기를 먼저 읽어서 즉시 적용 (깜빡임 방지)
+      (function() {
+        try {
+          const savedSettings = localStorage.getItem('user-settings');
+          if (savedSettings) {
+            const settings = JSON.parse(savedSettings);
+            const fontSize = settings.state?.settings?.fontSize || 'medium';
+            const root = document.documentElement;
+
+            if (fontSize === 'small') {
+              root.style.fontSize = '14px';
+            } else if (fontSize === 'large') {
+              root.style.fontSize = '18px';
+            } else {
+              root.style.fontSize = '16px';
+            }
+          }
+        } catch (error) {
+          console.error('Failed to load fontSize from localStorage:', error);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_MAP_KEY%&libraries=services"></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

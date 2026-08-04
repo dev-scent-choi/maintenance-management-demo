@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 전역 폰트 크기 통일 */
+@layer base {
+  /* Tailwind 기본 border-color 오버라이드 - 테마 기반 색상 적용 */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border, #C8CBE0);
+  }
+
+  /* 기본 폰트 설정 */
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard Variable', Pretendard, 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', system-ui, sans-serif;
+    font-size: 16px; /* 1rem = 16px */
+    overflow-y: auto; /* 스크롤 가능 */
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨김 */
+    -ms-overflow-style: none; /* IE/Edge에서 스크롤바 숨김 */
+    -webkit-text-size-adjust: 100%; /* 모바일 텍스트 크기 자동 조정 방지 */
+    -webkit-tap-highlight-color: transparent; /* 모바일 탭 하이라이트 제거 */
+  }
+
+  /* Chrome, Safari, Edge에서 스크롤바 숨김 */
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    font-size: 1rem; /* 16px - 기본 텍스트 */
+    line-height: 1.5;
+    overflow-x: hidden; /* 화면이 좁아져도 페이지 전체가 가로로 밀리지 않도록 방지 */
+  }
+
+  /* 제목 크기 통일 */
+  h1 {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  h2 {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  h3 {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  /* 입력 필드 폰트 크기는 상속 */
+  input, textarea, select {
+    font-size: inherit;
+  }
+
+  /* 버튼 폰트 크기는 상속 */
+  button {
+    font-size: inherit;
+  }
+
+  /* 레이블 폰트 크기는 상속 */
+  label {
+    font-size: inherit;
+  }
+}
+
+/* 애니메이션 */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* 스크롤바 완전히 숨김 - 전역 적용 */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* 호버 시 스크롤바 표시 (목록 영역) */
+.scroll-area {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: transparent transparent; /* Firefox: thumb track */
+  transition: scrollbar-color 0.2s;
+}
+
+.scroll-area:hover {
+  scrollbar-color: rgba(128, 128, 128, 0.4) transparent; /* Firefox */
+}
+
+.scroll-area::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+  height: 6px;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+.scroll-area:hover::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.4);
+}
+
+/* 입력 필드 포커스 - 테마 색상 적용 */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent) !important;
+}
+
+/* 버튼 포커스 (키보드 탐색) — input 포커스와 동일한 시각 효과 */
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: none !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-primary, #3B82F6) 50%, transparent),
+    0 0 0 4px color-mix(in srgb, var(--color-primary, #3B82F6) 10%, transparent) !important;
+}
+
+/* 마우스 클릭 포커스 — 기본 outline 제거 */
+button:focus:not(:focus-visible),
+[role="button"]:focus:not(:focus-visible) {
+  outline: none !important;
+}
+
+/* 포커스 링 없는 입력 필드 */
+input.no-focus-ring:focus {
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Range Slider 스타일링 */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+/* Chrome, Safari, Edge */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: currentColor;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox */
+input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: currentColor;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+input[type='range']::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* DOCX Viewer 스타일 - 컨테이너 내부에만 렌더링되도록 제한 */
+.docx-viewer-container {
+  position: relative !important;
+  overflow: visible !important;
+  width: 100% !important;
+  border: 1px solid #d0d0d0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.docx-viewer-container .docx-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.docx-viewer-container .docx,
+.docx-viewer-container section.docx {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-shadow: none !important;
+  margin: 0 auto !important;
+  padding: 40px !important;
+  background: white !important;
+  box-sizing: border-box !important;
+  border: none !important;
+}
+
+/* DOCX 내부 텍스트 요소 - 줄바꿈 허용 */
+.docx-viewer-container p,
+.docx-viewer-container div,
+.docx-viewer-container span {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+}
+
+/* DOCX 테이블 스타일 - 줄바꿈과 자동 너비 조정 */
+.docx-viewer-container table {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: auto !important;
+  word-break: break-word !important;
+}
+
+.docx-viewer-container table td,
+.docx-viewer-container table th {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}

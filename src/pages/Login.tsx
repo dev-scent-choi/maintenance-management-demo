@@ -351,7 +351,7 @@ const Login: React.FC = () => {
             {/* 데모 안내 (백엔드 없이 목업 데이터로 동작하는 포트폴리오용 데모입니다) */}
             <div className="mb-5 p-3.5 rounded-xl" style={{ background: 'rgba(96,165,250,0.1)', border: '1px solid rgba(96,165,250,0.2)' }}>
               <p className="text-xs leading-relaxed" style={{ color: '#93C5FD' }}>
-                데모 계정 — 아이디: <b>admin</b>, 비밀번호: <b>1</b>
+                데모 계정 — 아이디: <b>admin</b>, 비밀번호: <b>123456</b>
               </p>
             </div>
 

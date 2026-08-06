@@ -87,8 +87,8 @@ export const useNotificationStore = create<NotificationState>()(
               'Notification' in window && Notification.permission === 'granted') {
             new Notification(notification.title, {
               body: notification.message,
-              icon: '/favicon.ico',
-              badge: '/favicon.ico',
+              icon: `${import.meta.env.BASE_URL}favicon.ico`,
+              badge: `${import.meta.env.BASE_URL}favicon.ico`,
               tag: newNotification.id,
             });
           }

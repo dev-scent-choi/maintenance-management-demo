@@ -31,7 +31,7 @@ import type { Theme, Language } from '../../types/settings';
 // 국기 이미지 컴포넌트
 const FlagImage: React.FC<{ country: 'kr' | 'us'; size?: number }> = ({ country, size = 20 }) => (
   <img
-    src={`/${country}.svg`}
+    src={`${import.meta.env.BASE_URL}${country}.svg`}
     alt={country === 'kr' ? '한국어' : 'English'}
     style={{ width: size, height: size * 0.67, objectFit: 'contain' }}
     className="rounded-sm"

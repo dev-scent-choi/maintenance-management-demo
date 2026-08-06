@@ -103,6 +103,28 @@ const Login: React.FC = () => {
     }
   };
 
+  // 데모 계정 원클릭 로그인 — 단계 이동 없이 즉시 admin/123456 으로 로그인
+  const handleDemoLogin = async () => {
+    setIsLoading(true);
+    setError('');
+    try {
+      const res = await fetch(import.meta.env.VITE_API_URL + '/auth/login-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ emailId: 'admin', password: '123456' }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || t('loginFailed'));
+      }
+      await handleLoginSuccess(await res.json());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('loginFailed'));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Step 2: 비밀번호 방식 선택
   const handleChoosePassword = () => {
     setError('');
@@ -348,11 +370,20 @@ const Login: React.FC = () => {
               <p className="text-sm" style={{ color: '#94A3B8' }}>{stepSubtitle[step]}</p>
             </div>
 
-            {/* 데모 안내 (백엔드 없이 목업 데이터로 동작하는 포트폴리오용 데모입니다) */}
+            {/* 데모 안내 (백엔드 없이 목업 데이터로 동작하는 포트폴리오용 데모입니다) — 클릭 한 번으로 로그인 */}
             <div className="mb-5 p-3.5 rounded-xl" style={{ background: 'rgba(96,165,250,0.1)', border: '1px solid rgba(96,165,250,0.2)' }}>
-              <p className="text-xs leading-relaxed" style={{ color: '#93C5FD' }}>
+              <p className="text-xs leading-relaxed mb-2.5" style={{ color: '#93C5FD' }}>
                 데모 계정 — 아이디: <b>admin</b>, 비밀번호: <b>123456</b>
               </p>
+              <button
+                type="button" onClick={handleDemoLogin} disabled={isLoading}
+                className="w-full py-2.5 rounded-lg text-xs font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ background: 'rgba(96,165,250,0.18)', color: '#BFDBFE', border: '1px solid rgba(96,165,250,0.35)' }}
+                onMouseEnter={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(96,165,250,0.28)'; }}
+                onMouseLeave={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(96,165,250,0.18)'; }}
+              >
+                {isLoading ? <SpinnerBtn label="로그인 중..." /> : '데모 계정으로 바로 로그인'}
+              </button>
             </div>
 
             {/* 에러 메시지 */}

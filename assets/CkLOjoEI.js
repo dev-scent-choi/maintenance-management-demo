@@ -1,0 +1,1 @@
+import{E as e}from"./xsfbXpEk.js";class s extends e{constructor(e,s={}){const t=s.font;if(void 0===t)super();else{const i=t.generateShapes(e,s.size);s.depth=void 0!==s.height?s.height:50,void 0===s.bevelThickness&&(s.bevelThickness=10),void 0===s.bevelSize&&(s.bevelSize=8),void 0===s.bevelEnabled&&(s.bevelEnabled=!1),super(i,s)}this.type="TextGeometry"}}export{s as TextGeometry};

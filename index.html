@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/maintenance-management-demo/assets/l6PxigAw.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>유지보수사이트</title>
+    <script>
+      // localStorage에서 폰트 크기를 먼저 읽어서 즉시 적용 (깜빡임 방지)
+      (function() {
+        try {
+          const savedSettings = localStorage.getItem('user-settings');
+          if (savedSettings) {
+            const settings = JSON.parse(savedSettings);
+            const fontSize = settings.state?.settings?.fontSize || 'medium';
+            const root = document.documentElement;
+
+            if (fontSize === 'small') {
+              root.style.fontSize = '14px';
+            } else if (fontSize === 'large') {
+              root.style.fontSize = '18px';
+            } else {
+              root.style.fontSize = '16px';
+            }
+          }
+        } catch (error) {
+          console.error('Failed to load fontSize from localStorage:', error);
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/maintenance-management-demo/assets/5zodxiY0.js"></script>
+    <link rel="modulepreload" crossorigin href="/maintenance-management-demo/assets/CL2iJWBy.js">
+    <link rel="modulepreload" crossorigin href="/maintenance-management-demo/assets/O9PRYnpG.js">
+    <link rel="modulepreload" crossorigin href="/maintenance-management-demo/assets/D4kBqnEq.js">
+    <link rel="modulepreload" crossorigin href="/maintenance-management-demo/assets/B02-JcDB.js">
+    <link rel="modulepreload" crossorigin href="/maintenance-management-demo/assets/Cjb_ViLt.js">
+    <link rel="stylesheet" crossorigin href="/maintenance-management-demo/assets/C4ruUt92.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_MAP_KEY%&libraries=services"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+import{c as s}from"./5zodxiY0.js";import{u as r,i as o,e as a,f as n,h as e}from"./B02-JcDB.js";const i=()=>{const i=s(s=>s.user);r(s=>s.rolePermissions);const c=o(i);return{can:s=>e(i,s),canAny:s=>n(i,s),canAll:s=>a(i,s),isAdmin:c,isUser:!c&&"user"===i?.role}};export{i as u};

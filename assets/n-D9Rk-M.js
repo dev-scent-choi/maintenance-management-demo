@@ -1,0 +1,1 @@
+const i="/api";function n(i){if(!i)return i;if("undefined"==typeof window)return i;const n=window.location.origin;return i.replace(/^http:\/\/localhost:8080\/api/,n+"/api").replace(/^http:\/\/127\.0\.0\.1:8080\/api/,n+"/api")}export{i as A,n};
